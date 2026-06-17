@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: placify-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PLACIFY_DB_PASSWORD:-}
+      MYSQL_DATABASE: placify
+    ports:
+      - "3306:3306"
+    volumes:
+      - placify_mysql_data:/var/lib/mysql
+
+volumes:
+  placify_mysql_data:

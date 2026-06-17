@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07101f">
+    <title>Placify | My Profile</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/Logo.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="/images/Logo.png" alt="Placify">
+            <div class="brand-copy">
+                <strong>Placify</strong>
+                <small>Campus Placement OS</small>
+            </div>
+        </div>
+        <p class="sidebar-section-label">Recruiter Menu</p>
+        <nav id="siteNav"></nav>
+        <div class="sidebar-footer">
+            <p class="sidebar-version">Placify &bull; v1.0</p>
+        </div>
+    </aside>
+
+    <div class="app-main">
+        <header class="topbar">
+            <button class="topbar-toggle" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect y="2" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="7.25" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="12.5" width="16" height="1.5" rx="1" fill="currentColor"/>
+                </svg>
+            </button>
+            <span class="topbar-title">My Profile</span>
+            <div class="topbar-right">
+                <button class="topbar-notify" type="button" aria-label="Notifications">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                        <path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 2.5.8 3.8 1.5 4.5H2c.7-.7 1.5-2 1.5-4.5A4.5 4.5 0 0 1 8 1.5z"/>
+                        <path d="M6.5 13.5a1.5 1.5 0 0 0 3 0"/>
+                    </svg>
+                    <span class="topbar-notify-dot"></span>
+                </button>
+                <div id="headerActions"></div>
+            </div>
+        </header>
+
+        <main class="page-content">
+            <div class="page-main">
+                <div class="content-grid">
+
+                    <!-- Profile snapshot -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">Profile Snapshot</span>
+                                <h2>Your profile</h2>
+                                <p class="panel-copy">Your professional details visible across Placify.</p>
+                            </div>
+                        </div>
+                        <div id="profileSnapshot"></div>
+                    </section>
+
+                    <!-- Edit form -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">Update Profile</span>
+                                <h2>Edit details</h2>
+                                <p class="panel-copy">Changes are saved immediately.</p>
+                            </div>
+                        </div>
+
+                        <form id="profileForm" class="form-stack" novalidate>
+                            <div class="form-grid">
+                                <label class="field">
+                                    <span>Company</span>
+                                    <input id="profileCompany" type="text" placeholder="e.g. Google, Infosys, Startup Inc.">
+                                </label>
+                                <label class="field">
+                                    <span>Position / Job Title</span>
+                                    <input id="profilePosition" type="text" placeholder="e.g. Senior HR Manager">
+                                </label>
+                            </div>
+                            <label class="field">
+                                <span>Years of Experience</span>
+                                <input id="profileExperience" type="number" min="0" max="60" step="1" placeholder="e.g. 5">
+                            </label>
+                            <label class="field">
+                                <span>LinkedIn URL</span>
+                                <input id="profileLinkedIn" type="url" placeholder="https://linkedin.com/in/yourname">
+                            </label>
+                            <label class="field">
+                                <span>Bio <small>(max 500 characters)</small></span>
+                                <textarea id="profileBio" rows="4" maxlength="500" placeholder="A short intro about yourself, your hiring focus, or the types of roles you recruit for."></textarea>
+                            </label>
+                            <button class="button primary" id="profileSaveBtn" type="submit" disabled>Save Changes</button>
+                        </form>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    const toggle = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("open"); }
+    toggle.addEventListener("click", () => { sidebar.classList.toggle("open"); overlay.classList.toggle("open"); });
+    overlay.addEventListener("click", closeSidebar);
+</script>
+<script type="module" src="/js/recruiter-profile.js"></script>
+</body>
+</html>

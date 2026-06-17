@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07101f">
+    <title>Placify | Recruiter Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/Logo.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="/images/Logo.png" alt="Placify">
+            <div class="brand-copy">
+                <strong>Placify</strong>
+                <small>Campus Placement OS</small>
+            </div>
+        </div>
+
+        <p class="sidebar-section-label">Recruiter Menu</p>
+        <nav id="siteNav"></nav>
+
+        <div class="sidebar-footer">
+            <p class="sidebar-version">Placify &bull; v1.0</p>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="app-main">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="topbar-toggle" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect y="2" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="7.25" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="12.5" width="16" height="1.5" rx="1" fill="currentColor"/>
+                </svg>
+            </button>
+            <span class="topbar-title" id="dashboardRoleBadge">Recruiter Dashboard</span>
+            <div class="topbar-right">
+                <button class="topbar-notify" type="button" aria-label="Notifications">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                        <path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 2.5.8 3.8 1.5 4.5H2c.7-.7 1.5-2 1.5-4.5A4.5 4.5 0 0 1 8 1.5z"/>
+                        <path d="M6.5 13.5a1.5 1.5 0 0 0 3 0"/>
+                    </svg>
+                    <span class="topbar-notify-dot"></span>
+                </button>
+                <div id="headerActions"></div>
+            </div>
+        </header>
+
+        <!-- Page -->
+        <main class="page-content">
+            <div class="page-main">
+
+                <!-- Welcome banner -->
+                <section class="db-welcome">
+                    <div class="db-welcome-inner">
+                        <div class="db-welcome-text">
+                            <span class="db-welcome-eyebrow">Recruiter Workspace</span>
+                            <h1 class="db-welcome-title" id="dashboardHeroTitle">Manage placement activity with control.</h1>
+                            <p class="db-welcome-sub" id="dashboardHeroSubtitle">Post openings, review companies, and keep the hiring pipeline moving.</p>
+                            <div class="db-welcome-actions">
+                                <a class="button secondary" href="/jobs.html">View Listings</a>
+                                <a class="button ghost" href="/applications.html">Manage Applications</a>
+                            </div>
+                        </div>
+                        <div class="db-welcome-right" id="managerSummary"></div>
+                    </div>
+                </section>
+
+                <!-- Stats row -->
+                <div class="scards-row" id="statsGrid"></div>
+
+                <!-- Company + Post Job -->
+                <section class="content-grid">
+                    <!-- Companies panel -->
+                    <section class="panel" id="companyPanel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">Companies</span>
+                                <h2>Company directory</h2>
+                                <p class="panel-copy">Admins can add records. Recruiters can review the directory.</p>
+                            </div>
+                        </div>
+                        <form id="companyForm" class="form-stack">
+                            <label class="field">
+                                <span>Company Name</span>
+                                <input id="companyName" type="text" placeholder="TechNova Pvt Ltd">
+                            </label>
+                            <label class="field">
+                                <span>Description</span>
+                                <textarea id="companyDescription" placeholder="Company profile, culture, and hiring focus"></textarea>
+                            </label>
+                            <button class="button primary" id="companyButton" type="submit">Add Company</button>
+                        </form>
+                        <p class="helper-text hidden" id="companyHint">
+                            Recruiters can view companies here. Only admins can add new companies.
+                        </p>
+                        <div id="companiesList" class="companies-list"></div>
+                    </section>
+
+                    <!-- Post job panel -->
+                    <section class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">Post Job</span>
+                                <h2>Create a hiring opportunity</h2>
+                                <p class="panel-copy">Keep the posting concise and easy for students to scan.</p>
+                            </div>
+                        </div>
+                        <form id="jobForm" class="form-stack">
+                            <input id="jobId" type="hidden">
+                            <div class="form-grid">
+                                <label class="field">
+                                    <span>Title</span>
+                                    <input id="jobTitle" type="text" placeholder="Java Backend Developer" required>
+                                </label>
+                                <label class="field">
+                                    <span>Company</span>
+                                    <select id="jobCompanyId" required></select>
+                                </label>
+                            </div>
+                            <div class="form-grid-3">
+                                <label class="field">
+                                    <span>Location</span>
+                                    <input id="jobLocation" type="text" placeholder="Bengaluru / Remote">
+                                </label>
+                                <label class="field">
+                                    <span>Salary / Package</span>
+                                    <input id="jobSalary" type="text" placeholder="8–12 LPA">
+                                </label>
+                                <label class="field">
+                                    <span>Application Deadline</span>
+                                    <input id="jobDeadline" type="date">
+                                </label>
+                            </div>
+                            <label class="field">
+                                <span>Eligibility</span>
+                                <input id="jobEligibility" type="text" placeholder="B.Tech CSE, 2026 batch, 7.0 CGPA+" required>
+                            </label>
+                            <label class="field">
+                                <span>Description</span>
+                                <textarea id="jobDescription" placeholder="Role summary, responsibilities, and expectations" required></textarea>
+                            </label>
+                            <div class="inline-actions">
+                                <button class="button primary" id="jobButton" type="submit">Post Job</button>
+                                <button class="button ghost hidden" id="cancelEditButton" type="button">Cancel Edit</button>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+
+                <!-- Job listings -->
+                <section class="panel">
+                    <div class="section-row">
+                        <div>
+                            <p class="section-row-label">Your Postings</p>
+                            <h2>Current job listings</h2>
+                        </div>
+                    </div>
+                    <div id="managedJobsGrid"></div>
+                </section>
+
+                <!-- Applicant pipeline (per job) -->
+                <section class="panel hidden" id="pipelinePanel">
+                    <div class="section-row">
+                        <div>
+                            <p class="section-row-label">Pipeline</p>
+                            <h2 id="pipelineTitle">Applicants</h2>
+                        </div>
+                        <div class="inline-actions">
+                            <button class="button secondary sm" id="exportCsvBtn" type="button">Export CSV</button>
+                            <button class="button ghost sm" id="closePipelineBtn" type="button">Close</button>
+                        </div>
+                    </div>
+                    <div id="pipelineContent"></div>
+                </section>
+
+                <!-- Applicant preview -->
+                <section class="panel">
+                    <div class="section-row">
+                        <div>
+                            <p class="section-row-label">Candidates</p>
+                            <h2>Recent applications</h2>
+                        </div>
+                        <a class="button secondary sm" href="/applications.html">Open Manager</a>
+                    </div>
+                    <div id="applicationPreviewGrid"></div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    const toggle = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("open"); }
+    toggle.addEventListener("click", () => { sidebar.classList.toggle("open"); overlay.classList.toggle("open"); });
+    overlay.addEventListener("click", closeSidebar);
+</script>
+<script type="module" src="/js/recruiter-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07101f">
+    <title>Placify | Student Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/Logo.png">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <img class="brand-logo" src="/images/Logo.png" alt="Placify">
+            <div class="brand-copy">
+                <strong>Placify</strong>
+                <small>Campus Placement OS</small>
+            </div>
+        </div>
+
+        <p class="sidebar-section-label">Student Menu</p>
+        <nav id="siteNav"></nav>
+
+        <div class="sidebar-footer">
+            <p class="sidebar-version">Placify &bull; v1.0</p>
+        </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="app-main">
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="topbar-toggle" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <rect y="2" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="7.25" width="16" height="1.5" rx="1" fill="currentColor"/>
+                    <rect y="12.5" width="16" height="1.5" rx="1" fill="currentColor"/>
+                </svg>
+            </button>
+            <span class="topbar-title">Student Dashboard</span>
+            <div class="topbar-right">
+                <button class="topbar-notify" type="button" aria-label="Notifications">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                        <path d="M8 1.5a4.5 4.5 0 0 1 4.5 4.5c0 2.5.8 3.8 1.5 4.5H2c.7-.7 1.5-2 1.5-4.5A4.5 4.5 0 0 1 8 1.5z"/>
+                        <path d="M6.5 13.5a1.5 1.5 0 0 0 3 0"/>
+                    </svg>
+                    <span class="topbar-notify-dot"></span>
+                </button>
+
+                <!-- Profile menu -->
+                <div class="profile-menu" id="profileMenu">
+                    <div id="headerActions"></div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="pd-header">
+                            <div class="pd-avatar" id="pdAvatar">?</div>
+                            <div>
+                                <div class="pd-name" id="pdName"></div>
+                                <div class="pd-email" id="pdEmail"></div>
+                            </div>
+                        </div>
+                        <div class="pd-divider"></div>
+
+                        <!-- View mode -->
+                        <div id="pdView">
+                            <div class="pd-row">
+                                <span class="pd-label">Branch</span>
+                                <span class="pd-value" id="pdBranch">—</span>
+                            </div>
+                            <div class="pd-row">
+                                <span class="pd-label">Resume</span>
+                                <span class="pd-value" id="pdResume">—</span>
+                            </div>
+                            <div class="pd-row pd-row--skills">
+                                <span class="pd-label">Skills</span>
+                                <div id="pdSkills"></div>
+                            </div>
+                            <button class="button secondary sm button--full" id="pdEditBtn" type="button">Edit Profile</button>
+                        </div>
+
+                        <!-- Edit mode -->
+                        <form id="pdForm" class="form-stack hidden" novalidate>
+                            <label class="field">
+                                <span>Branch / Department</span>
+                                <input id="pdBranchInput" type="text" placeholder="e.g. Computer Science" required>
+                            </label>
+                            <label class="field">
+                                <span>Skills <small>(comma-separated)</small></span>
+                                <textarea id="pdSkillsInput" rows="3" placeholder="Java, Spring Boot, MySQL" required></textarea>
+                            </label>
+                            <div class="field">
+                                <span>Resume <small>(PDF · max 2 MB)</small></span>
+                                <label class="resume-upload-zone" id="pdResumeZone">
+                                    <input id="pdResumeFile" type="file" accept=".pdf" class="resume-file-hidden">
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M9 12V4"/><path d="M5 8l4-4 4 4"/>
+                                        <path d="M2 14h14"/>
+                                    </svg>
+                                    <span id="pdResumeZoneLabel">Click to choose PDF</span>
+                                </label>
+                                <p class="resume-current-hint" id="pdResumeCurrent"></p>
+                            </div>
+                            <div class="pd-form-actions">
+                                <button class="button ghost sm" id="pdCancelBtn" type="button">Cancel</button>
+                                <button class="button primary sm" id="pdSaveBtn" type="submit">Save Changes</button>
+                            </div>
+                            <div class="alert hidden" id="pdMessage" role="status" aria-live="polite"></div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Page -->
+        <main class="page-content">
+            <div class="page-main">
+
+                <div class="alert hidden" id="pageMessage" role="status" aria-live="polite"></div>
+
+                <!-- Welcome banner -->
+                <section class="db-welcome">
+                    <div class="db-welcome-inner">
+                        <div class="db-welcome-text">
+                            <span class="db-welcome-eyebrow">Student Workspace</span>
+                            <h1 class="db-welcome-title" id="studentHeroTitle">Track your placement journey.</h1>
+                            <p class="db-welcome-sub" id="studentHeroSubtitle">Keep your profile current, scan open roles, and monitor your applications.</p>
+                            <div class="db-welcome-actions">
+                                <a class="button secondary" href="/jobs.html">Browse Roles</a>
+                                <a class="button ghost" href="/applications.html">My Applications</a>
+                            </div>
+                        </div>
+                        <div class="db-welcome-right" id="accountSnapshot"></div>
+                    </div>
+                </section>
+
+                <!-- Stats row -->
+                <div class="scards-row" id="statsGrid"></div>
+
+                <!-- Available jobs -->
+                <section class="panel">
+                    <div class="section-row">
+                        <div>
+                            <p class="section-row-label">Opportunities</p>
+                            <h2>Open roles for you</h2>
+                        </div>
+                        <a class="button secondary sm" href="/jobs.html">View All</a>
+                    </div>
+                    <div id="availableJobsGrid"></div>
+                </section>
+
+                <!-- Recent applications -->
+                <section class="panel">
+                    <div class="section-row">
+                        <div>
+                            <p class="section-row-label">Applications</p>
+                            <h2>Your submissions</h2>
+                        </div>
+                        <a class="button secondary sm" href="/applications.html">Open All</a>
+                    </div>
+                    <div id="recentApplicationsGrid"></div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    const toggle = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    function closeSidebar() { sidebar.classList.remove("open"); overlay.classList.remove("open"); }
+    toggle.addEventListener("click", () => { sidebar.classList.toggle("open"); overlay.classList.toggle("open"); });
+    overlay.addEventListener("click", closeSidebar);
+</script>
+<script type="module" src="/js/student-dashboard.js"></script>
+</body>
+</html>

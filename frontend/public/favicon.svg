@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="Placify">
+  <!-- Dark navy background -->
+  <rect width="72" height="72" rx="14" fill="#07101f"/>
+
+  <!-- Left bracket: bottom-left → up → diagonal up-right -->
+  <path d="M15 57 L15 30 L27 18"
+        stroke="#06b6d4" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Bottom run: bottom-left → bottom-right -->
+  <path d="M15 57 L39 57"
+        stroke="#06b6d4" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Diagonal: bottom-right → upper-right junction -->
+  <path d="M39 57 L55 39"
+        stroke="#06b6d4" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Top bar: top-left junction → top-right corner -->
+  <path d="M27 18 L55 18"
+        stroke="#4ade80" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Right vertical: top-right → lower-right junction -->
+  <path d="M55 18 L55 39"
+        stroke="#4ade80" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+  <!-- Arrow head pointing up at top-right -->
+  <polyline points="48,26 55,18 62,26"
+            stroke="#4ade80" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Junction nodes -->
+  <circle cx="15"  cy="30" r="5"   fill="#4ade80"/>
+  <circle cx="27"  cy="18" r="4.5" fill="#06b6d4"/>
+  <circle cx="55"  cy="18" r="5"   fill="#4ade80"/>
+  <circle cx="15"  cy="57" r="4.5" fill="#06b6d4"/>
+  <circle cx="39"  cy="57" r="5"   fill="#4ade80"/>
+  <circle cx="55"  cy="39" r="4.5" fill="#06b6d4"/>
+</svg>
